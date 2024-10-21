@@ -6,7 +6,7 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install ctype 
 RUN docker-php-ext-install fileinfo 
 # RUN docker-php-ext-install json  # https://stackoverflow.com/questions/65255801/unable-to-install-the-json-extension-in-phps-docker-image
-RUN docker-php-ext-install mbstring 
+# RUN docker-php-ext-install mbstring 
 RUN docker-php-ext-install pdo 
 RUN docker-php-ext-install pdo_mysql 
 RUN docker-php-ext-install tokenizer 
