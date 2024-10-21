@@ -1,6 +1,6 @@
 
 FROM 1devops2/composer:4.0
-RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo gd pdo_mysql mysqli
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo gd pdo_mysql mysqli bcmath ctype fileinfo json mbstring tokenizer xml 
 RUN apt-get install -y gnupg2 default-mysql-client
 RUN pecl install redis && docker-php-ext-enable redis pdo_mysql
 COPY <project-code-directory> /var/www/html/
