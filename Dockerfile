@@ -1,6 +1,19 @@
 
 FROM 1devops2/composer:4.0
-RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo gd pdo_mysql mysqli bcmath ctype mbstring tokenizer xml 
+RUN apt-get update && apt-get install -y libpq-dev 
+# Install PHP extensions one by one to avoid issues
+RUN docker-php-ext-install bcmath \
+    && docker-php-ext-install ctype \
+    && docker-php-ext-install fileinfo \
+    && docker-php-ext-install json \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-install pdo \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install tokenizer \
+    && docker-php-ext-install xml \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install mysqli
+    
 RUN apt-get install -y gnupg2 default-mysql-client
 RUN pecl install redis && docker-php-ext-enable redis pdo_mysql
 COPY Workzone /var/www/html/
