@@ -6,7 +6,7 @@ name: docker build and push image
 
 on:
   workflow_dispatch:
-  push
+  push:
 
 env:
   OWNER_NAME: 1devops2
