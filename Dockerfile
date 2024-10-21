@@ -1,5 +1,5 @@
-
-FROM 1devops2/composer:4.0
+FROM php:8.2.24-fpm
+FROM 1devops2/composer:4.0 as base
 RUN apt-get update && apt-get install -y libpq-dev 
 # Install PHP extensions one by one to avoid issues
 RUN docker-php-ext-install bcmath 
