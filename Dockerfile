@@ -1,4 +1,5 @@
-FROM ubuntu:latest AS base
+FROM 1devops2/compose:4.0 
+# FROM ubuntu:latest AS base
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -27,8 +28,8 @@ RUN apt install -y php8.2\
 RUN apt install -y php8.2-fpm php8.2-cli
 
 # Install composer
-RUN apt install -y curl
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
+# RUN apt install -y curl
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 COPY Workzone /var/www/html/
 COPY .env /var/www/html/
