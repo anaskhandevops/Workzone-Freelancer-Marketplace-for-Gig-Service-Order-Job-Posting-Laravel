@@ -1,4 +1,4 @@
-FROM 1devops2/composer:4.0 
+
 FROM ubuntu:latest AS base
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -31,6 +31,9 @@ RUN apt install -y php8.2-fpm php8.2-cli
 # RUN apt install -y curl
 # RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
+
+
+FROM 1devops2/composer:4.0 AS base
 COPY Workzone /var/www/html/
 COPY .env /var/www/html/
 COPY default.conf /etc/nginx/sites-enabled/default
