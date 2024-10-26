@@ -44,7 +44,7 @@ COPY default.conf /etc/nginx/sites-enabled/default
 # RUN sed -i -e 's/max_execution_time = 30/max_execution_time = 360/' /etc/php/8.2/fpm/php.ini
 # RUN sed -i -e 's/max_input_time = 60/max_input_time = 360/' /etc/php/8.2/fpm/php.ini
 
-RUN composer update
+# RUN composer update
 RUN composer install
 #RUN php artisan optimize
 RUN php artisan cache:clear
