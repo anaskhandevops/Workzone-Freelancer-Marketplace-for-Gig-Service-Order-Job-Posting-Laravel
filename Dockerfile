@@ -1,4 +1,4 @@
-FROM 1devops2/compose:4.0 
+FROM 1devops2/composer:4.0 
 # FROM ubuntu:latest AS base
 
 ENV DEBIAN_FRONTEND noninteractive
