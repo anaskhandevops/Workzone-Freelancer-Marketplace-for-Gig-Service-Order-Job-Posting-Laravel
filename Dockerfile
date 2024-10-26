@@ -34,7 +34,10 @@ COPY Workzone /var/www/html/
 COPY .env /var/www/html/
 COPY default.conf /etc/nginx/sites-enabled/default
 
-RUN ls -lhart /etc/php
+RUN ls -lhart /etc/php/8.2/ 
+RUN ls -lhart /usr/local/etc/php
+RUN ls -lhart /usr/local/etc/php/8.2/
+
 # # RUN ln -s /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 # RUN sed -i -e 's/upload_max_filesize = 2M/upload_max_filesize = 100M/' /usr/local/etc/php/php.ini
 # RUN sed -i -e 's/post_max_size = 8M/post_max_size = 200M/' /usr/local/etc/php/php.ini
