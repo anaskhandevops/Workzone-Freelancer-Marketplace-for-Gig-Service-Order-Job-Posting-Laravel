@@ -1,4 +1,5 @@
 ├── default.conf
+├── docker-compose.yaml
 ├── Dockerfile
 ├── .env
 ├── sourcecode-directory[workzone]
