@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:8.0-debian
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: workzone_root
+      MYSQL_DATABASE: workzone_database
+      MYSQL_USER: workzone_user
+      MYSQL_PASSWORD: workzone_user_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/anask/workzone/mysql:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+    ports:
+      - "8080:80"
+
+  workzone:
+    image: workzone:latest
+    container_name: workzone
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /home/anask/Project/logs:/var/www/html/storage/logs/laravel.log
+    depends_on:
+      - database

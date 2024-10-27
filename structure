@@ -1,6 +1,6 @@
+├── Dockerfile 
+├── startup.sh 
 ├── default.conf
-├── docker-compose.yaml
-├── Dockerfile
 ├── .env
 ├── sourcecode-directory[workzone]
-└── startup.sh
+└── docker-compose.yaml
