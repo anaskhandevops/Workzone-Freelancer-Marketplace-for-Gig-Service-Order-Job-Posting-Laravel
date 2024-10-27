@@ -4,3 +4,15 @@
 ├── .env
 ├── sourcecode-directory[workzone]
 └── docker-compose.yaml
+
+
+Actual commands:
+
+db container:
+docker run -it --network mynet --name database -e MYSQL_ROOT_PASSWORD=anas23passwrd  -e MYSQL_DATABASE=workzone -e MYSQL_USER=anas -e MYSQL_PASSWORD=anas23passwrd -p3306:3306 -v /home/anask/workzone/mysql:/var/lib/mysql-d mysql:8.0-debian
+
+phpmyadmin container:
+docker run -d --network mynet --name phpmyadmin -e PMA_ARBITRARY=1 -p 8089:80 phpmyadmin/phpmyadmin
+
+workzone container:
+docker run -it --network mynet --name workzone -p80:80 -p443:443 -v /projects/laravel/Workzone-Freelancer-Marketplace-for-Gig-Service-Order-Job-Posting-Laravel/logs:/var/www/html/storage/logs/laravel.log  -d workzone_without_composer:latest 
