@@ -12,9 +12,6 @@ RUN composer install \
 
 # php setup and install extensions
 FROM php:8.2-fpm as base
-COPY Workzone /var/www/html/ 
-COPY .env /var/www/html/ 
-COPY --from=vendor /app/vendor/ /var/www/html/vendor/
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN install-php-extensions gd 
 RUN install-php-extensions xdebug 
@@ -30,17 +27,22 @@ RUN install-php-extensions mbstring
 RUN install-php-extensions fileinfo
 RUN install-php-extensions xml
 RUN install-php-extensions openssl
+
+# setup nginx and conf
+RUN apt-get update && apt-get install -y nginx
+COPY default.conf /etc/nginx/sites-enabled/default
+COPY Workzone /var/www/html/ 
+COPY --from=vendor /app/vendor/ /var/www/html/vendor/
+COPY .env /var/www/html/ 
+RUN chown -R www-data:www-data /var/www/html/
+WORKDIR /var/www/html/
+
+
 RUN php artisan optimize 
 RUN php artisan cache:clear 
 RUN php artisan config:clear 
 RUN php artisan route:clear 
 RUN php artisan key:generate 
 
-# nginx setup
-FROM nginx:alpine-slim
-COPY default.conf /etc/nginx/conf.d/default.conf
-COPY --from=base /var/www/html /usr/share/nginx/html
-EXPOSE 80
 COPY startup.sh /opt/startup.sh 
 RUN chmod a+x /opt/startup.sh 
-CMD ["/opt/startup.sh"] 

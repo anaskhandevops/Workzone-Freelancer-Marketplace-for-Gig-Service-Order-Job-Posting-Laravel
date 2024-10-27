@@ -1,0 +1,5 @@
+├── default.conf
+├── Dockerfile
+├── .env
+├── sourcecode-directory[workzone]
+└── startup.sh
