@@ -29,14 +29,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-        try{
-            $setting = Cache::rememberForever('setting', function(){
+        try {
+            $setting = Cache::rememberForever('setting', function() {
                 $setting_data = GlobalSetting::get();
 
                 $setting = array();
 
-                foreach($setting_data as $data_item){
+                foreach ($setting_data as $data_item) {
                     $setting[$data_item->key] = $data_item->value;
                 }
 
@@ -44,16 +43,23 @@ class AppServiceProvider extends ServiceProvider
 
                 return $setting;
             });
-        }catch(Throwable $th){}
-
+        } catch (Throwable $th) {
+            // Handle the exception if necessary
+        }
 
         $timezone_setting = Cache::get('setting');
 
-        config(['app.timezone' => $timezone_setting->timezone]);
-        date_default_timezone_set($timezone_setting->timezone);
+        // Check if $timezone_setting is not null and has the timezone property
+        if ($timezone_setting && isset($timezone_setting->timezone)) {
+            config(['app.timezone' => $timezone_setting->timezone]);
+            date_default_timezone_set($timezone_setting->timezone);
+        } else {
+            // Set a default timezone if the setting is not found
+            config(['app.timezone' => 'UTC']); // or any default timezone you prefer
+            date_default_timezone_set('UTC'); // or any default timezone you prefer
+        }
 
-        View::composer('*', function($view){
-
+        View::composer('*', function($view) {
             $general_setting = Cache::get('setting');
 
             $language_list = Language::where('status', 1)->get();
@@ -72,10 +78,6 @@ class AppServiceProvider extends ServiceProvider
             $view->with('custom_pages', $custom_pages);
             $view->with('footer_categories', $footer_categories);
             $view->with('footer_blog_categories', $footer_blog_categories);
-
         });
-
-
-
     }
 }
