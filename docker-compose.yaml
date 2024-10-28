@@ -23,7 +23,7 @@ services:
       - "8080:80"
 
   workzone:
-    image: "${env.OWNER_NAME}/${env.REPOSITORY_NAME}:${env.IMAGE_TAG}"
+    image: "${OWNER_NAME}/${REPOSITORY_NAME}:${IMAGE_TAG}"
     container_name: workzone
     ports:
       - "80:80"
