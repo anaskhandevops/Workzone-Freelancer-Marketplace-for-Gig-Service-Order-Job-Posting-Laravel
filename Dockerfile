@@ -1,6 +1,6 @@
 # Stage 1: Composer setup and install dependencies
 # Use an official Composer image to install PHP dependencies in a separate layer
-FROM composer:2.8 as vendor 
+FROM composer:2.8 AS vendor 
 
 # Copy the required files for Composer to resolve dependencies
 COPY Workzone/database/ database/
@@ -17,7 +17,7 @@ RUN composer install \
 
 # Stage 2: PHP setup and extension installation
 # Use the official PHP image with FPM (FastCGI Process Manager) for optimal performance with NGINX
-FROM php:8.2-fpm as base
+FROM php:8.2-fpm AS base
 
 # Download and set permissions for the PHP extension installer script
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
